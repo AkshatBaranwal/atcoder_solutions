@@ -1,0 +1,69 @@
+-	Simple Hashing
+-	Sliding Window
+-	Binary Search
+-	GCD (Euclidean and Extended Euclidean)
+-	Linear Diphantine Equation
+-	Sieve Of Eratosthenes
+-	Segmented Sieve
+-	Prime Factor in logn
+-	Euler Totient Function
+-	Wilson's Theorem
+-	Binary Exponentiation
+-	Modular Inverse
+-	Modular Exponentiation
+-	Chinese Remainder Theorem
+-	Factorial Modulo
+-	Inclusion Exclusion Principle
+-	2 pointer approach
+-	Bit Manipulation
+-	Power Set using BIT
+-	Number of subarrays with XOR as 0
+-	Kadane's Algorithm
+-	Job Sequencing and Activity Selection
+-	Recursion
+-	Backtracking
+-	Meet in the middle
+-	Divide and Conquer
+-	Next greater/smaller using Stack
+-	Largest rectangular area in histogram
+-	Heap (Priority Queue)
+-	Rabin Karp
+-	Prefix
+-	KMP Algorithm
+-	Z Algorithm
+-	Manacher's Algorithm
+-	Tree/Graph
+-	DFS/BFS
+-	Diameter of Tree
+-	Euler Tour of tree
+-	LCA using Euler Tour 
+-	LCA using Binary Lifting
+-	Dist b/w 2 nodes
+-	Subtree
+-	Connected Components
+-	Topological Sort
+-	Cycle Detection
+-	Bipartite Check
+-	SCC using Kosaraju's Algorithm
+-	Djikstra
+-	Bellman Ford
+-	Floyd Warshall
+-	Bridges in graph
+-	Articulation Point
+-	Minimum Spanning Tree
+-	Prim's Algo
+-	0/1 BFS
+-	FInding Bridges online
+-	DP
+-	Disjoint Set Union
+-	Kruskal's Algo
+-	Sparse Table
+-	Fenwick Tree (Range update trick)
+-	Binary lifting on fenwick tree
+-	Matrix Exponentiation
+-	Sqrt decomposition
+-	Update and Query Ops
+-	Mo's Algo
+-	Mo's Algo on trees 
+-	Segment Trees
+-	Lazy Propogation on Segment Trees
