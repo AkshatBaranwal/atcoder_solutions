@@ -1,0 +1,253 @@
+CODEFORCES
+
+TRADEOFF
+STIMULER
+
+ZTM
+
+
+ZTM - robofrnds, smart brain
+Computer Vision Nanodegree
+Flutter
+
+
+
+
+ztm     3 hrs
+opencv  2 hrs
+flutter 2 hr
+cp      3 hrs (8-11)
+
+
+wake up 6:30
+9:30 to 12 (14.5 hrs)
+
+10 hrs study
+11 - 12 assgn if any
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+#define FOR(I,v,b) for(int I=v;I<b;I++)
+#define FORit(it,v) for(auto it=v.begin();it!=v.end();it++)
+#define ROF(I,v,b) for(int I=v;I>=b;I--)
+#define vec vector
+#define vi vec<int>
+#define pb push_back
+#define pp pop_back
+#define all(x) x.begin(),x.end()
+#define testcases int tc;cin>>tc;while(tc--)
+#define mem(v,k) memset(v,k,sizeof(v))
+#define FF first
+#define SS second
+#define rt return
+#define br break
+#define ct continue
+#define endl "\n"
+#define ii pair<int,int>
+#define vecin(v,n,index) for(int I=index;I<n;I++)cin>>v[I];
+#define vecout(v,n,index) for(int I=index;I<n;I++)cout<<v[I]<<" ";cout<<endl;
+
+//-------------------------DEBUGGING----------------------------------
+template <typename A, typename B>
+string to_string(pair<A, B> p) {
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B, C> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
+}
+template <typename A, typename B, typename C, typename D>
+string to_string(tuple<A, B, C, D> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>
+            (p)) + ")";
+}
+string to_string(const string &s) {
+    return '"' + s + '"';
+}
+string to_string(const char *s) {
+    return to_string((string) s);
+}
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
+template <size_t N>
+string to_string(bitset<N> v) {
+    string res = "";
+
+    for (size_t i = 0; i < N; i++)res += static_cast<char>('0' + v[i]);
+
+    reverse(all(res));
+    return res;
+}
+template <typename A>
+string to_string(A v) {
+    bool first = true;
+    string res = "{";
+
+    for (const auto &x : v) {
+        if (!first)
+            res += ", ";
+
+        first = false;
+        res += to_string(x);
+    }
+
+    res += "}";
+    return res;
+}
+void debug_out() {
+    cerr << endl;
+}
+template <typename Head, typename... Tail>
+void debug_out(Head H, Tail... T) {
+    cerr << " " << to_string(H);
+    debug_out(T...);
+}
+#ifndef ONLINE_JUDGE
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#else
+#define debug(...);
+#endif
+//--------------------------------------------------------------------
+const int N = 3e5 + 2, L = 20;
+vi ad[N], tin(N), tout(N), val(N), t(4 * N);
+vec<vi> up(N, vi(L));
+int timer = 0;
+vi tour;
+void dfs(int v, int p) {
+    up[v][0] = p;
+    tour.pb(v);
+    FOR(i, 1, L) {
+        up[v][i] = up[up[v][i - 1]][i - 1];
+    }
+    tin[v] = timer++;
+
+    for (auto u : ad[v]) {
+        if (u == p)ct;
+
+        dfs(u, v);
+    }
+
+    tour.pb(v);
+    tout[v] = timer++;
+}
+bool is_ancestor(int u, int v) {
+    return (tin[u] <= tin[v] && tout[u] >= tout[v]);
+}
+int lca(int u, int v) {
+    if (is_ancestor(u, v))rt u;
+
+    if (is_ancestor(v, u))rt v;
+
+    ROF(i, L - 1, 0) {
+        if (!is_ancestor(up[u][i], v))u = up[u][i];
+    }
+    rt up[u][0];
+}
+void preprocess(int n) {
+    FOR(i, 0, n + 1)ad[i].clear();
+    tour.clear();
+    fill(all(tin), 0);
+    fill(all(tout), 0);
+    fill(all(val), 0);
+    fill(all(t), 0);
+    timer = 0;
+    fill(all(up), vi(L));
+}
+void build(int v, int tl, int tr) {
+    if (tl == tr)
+        t[v] = val[tour[tl]];
+    else {
+        int tm = (tl + tr) / 2;
+        build(v * 2, tl, tm);
+        build(v * 2 + 1, tm + 1, tr);
+    }
+}
+
+void update(int v, int tl, int tr, int l, int r, int add) {
+    if (l > r)
+        return;
+
+    if (l == tl && r == tr)
+        t[v] ^= add;
+    else {
+        int tm = (tl + tr) / 2;
+        update(v * 2, tl, tm, l, min(r, tm), add);
+        update(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r, add);
+    }
+}
+
+int get(int v, int tl, int tr, int pos) {
+    if (tl == tr)
+        return t[v];
+
+    int tm = (tl + tr) / 2;
+
+    if (pos <= tm)
+        return (t[v] ^ get(v * 2, tl, tm, pos));
+    else
+        return (t[v] ^ get(v * 2 + 1, tm + 1, tr, pos));
+}
+void solve() {
+    int n, q;
+    cin >> n >> q;
+    int m = n - 1;
+    preprocess(n);
+
+    while (m--) {
+        int u, v;
+        cin >> u >> v;
+        ad[u].pb(v);
+        ad[v].pb(u);
+    }
+
+    dfs(1, 1);
+    // debug(tour);
+    // vecout(tin, n + 1, 1);
+    // vecout(tout, n + 1, 1);
+    build(1, 0, tour.size() - 1);
+
+    while (q--) {
+        int u, v, w;
+        cin >> u >> v >> w;
+
+        if (tin[u] > tin[v])swap(u, v);
+
+        if (lca(u, v) == u) {
+            int l = tin[u], r = tin[v];
+            update(1, 0, tour.size() - 1, l, r, w);
+        }
+        else {
+            int l = tout[u], r = tin[v];
+            val[lca(u, v)] ^= w;
+            update(1, 0, tour.size() - 1, l, r, w);
+        }
+    }
+
+    // flatten tree
+    int ans = 0;
+    FOR(i, 0, tour.size() - 1) {
+        int temp = get(1, 0, tour.size() - 1, i);
+        val[tour[i]] ^= temp;
+    }
+    FOR(i, 1, n + 1)ans += val[i];
+    // vecout(val, n + 1, 1);
+    cout << ans << endl;
+}
+
+signed main() {
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    freopen("error.txt", "w", stderr);
+#endif
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    testcases
+    solve();
+}
